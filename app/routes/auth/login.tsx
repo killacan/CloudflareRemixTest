@@ -1,5 +1,6 @@
 import { type ActionFunctionArgs } from '@remix-run/node'
 import { createServerClient, parse, serialize } from '@supabase/ssr'
+import { signinFormSchema } from '~/components/schemas'
 
 export async function action({ request }: ActionFunctionArgs) {
   const cookies = parse(request.headers.get('Cookie') ?? '')
@@ -19,5 +20,11 @@ export async function action({ request }: ActionFunctionArgs) {
     },
   })
 
-  console.log(request)
+  const formData = await request.formData()
+  const { email, password } = Object.fromEntries(formData)
+
+  // const { email: emailError, password: passwordError } = signinFormSchema.safeParse({
+  //   email,
+  //   password,
+  // })
 }
