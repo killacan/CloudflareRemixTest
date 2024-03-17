@@ -23,8 +23,22 @@ export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData()
   const { email, password } = Object.fromEntries(formData)
 
-  // const { email: emailError, password: passwordError } = signinFormSchema.safeParse({
-  //   email,
-  //   password,
-  // })
+  const parsedData = signinFormSchema.safeParse({
+    email,
+    password,
+  })
+
+  if (!parsedData.success) {
+    return new Response(JSON.stringify(parsedData.error), {
+      status: 400,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+  }
+
+  const { error } = await supabase.auth.signInWithPassword({
+    email: parsedData.data.email,
+    password: parsedData.data.password,
+  })
 }

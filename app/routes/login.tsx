@@ -40,18 +40,18 @@ export default function Login() {
       }
     })
   
-    function onSignin(values: z.infer<typeof signinFormSchema>) {
-      // Do something with the form values.
-      // ✅ This will be type-safe and validated.
-      signIn(values)
-    }
+    // function onSignin(values: z.infer<typeof signinFormSchema>) {
+    //   // Do something with the form values.
+    //   // ✅ This will be type-safe and validated.
+    //   signIn(values)
+    // }
   
-    function onSignup(values: z.infer<typeof signupFormSchema>) {
-      // Do something with the form values.
-      // ✅ This will be type-safe and validated.
+    // function onSignup(values: z.infer<typeof signupFormSchema>) {
+    //   // Do something with the form values.
+    //   // ✅ This will be type-safe and validated.
   
-      signUp(values)
-    }
+    //   signUp(values)
+    // }
   
     return (
       <div className="flex-1 flex flex-col w-full sm:max-w-lg gap-2 place-content-center animate-in">
@@ -63,7 +63,7 @@ export default function Login() {
           </TabsList>
         <TabsContent value="Signin" className='animate-in'>
         <CustomForm {...signinForm}>
-              <RemixForm onSubmit={signinForm.handleSubmit(onSignin)} className="space-y-8">
+              <RemixForm action="/auth/login" className="space-y-8">
                   <FormField
                   control={signinForm.control}
                   name="email"
@@ -109,7 +109,7 @@ export default function Login() {
         </TabsContent>
         <TabsContent value="Signup" className='animate-in'>
         <CustomForm {...signupForm}>
-              <RemixForm onSubmit={signupForm.handleSubmit(onSignup)} className="space-y-8">
+              <RemixForm className="space-y-8">
                   <FormField
                   control={signupForm.control}
                   name="username"
@@ -171,11 +171,11 @@ export default function Login() {
         </TabsContent>
         </Tabs>
   
-        {searchParams?.message && (
+        {/* {searchParams?.message && (
           <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
             {searchParams.message}
           </p>
-        )}
+        )} */}
   
       </div>
     )
